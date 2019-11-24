@@ -5,9 +5,9 @@ function SavedContent(props){
 
     let displayWhat
     if(props.item.post_hint === "image"){
-      displayWhat = <Card.Img variant="top" src={props.item.url} />
+      displayWhat = <Card.Img variant="top" src={props.item.url} loading="lazy" />
     }else if(props.item.thumbnail !== "default" && props.item.thumbnail !== "self"){
-      displayWhat = <Card.Img variant="top" src={props.item.thumbnail} />
+      displayWhat = <Card.Img variant="top" src={props.item.thumbnail} loading="lazy"/>
     }
 
     return(
