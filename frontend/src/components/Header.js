@@ -35,12 +35,21 @@ class Header extends React.Component{
   }
 
     render(){
+      let color = "green"
+      if(this.props.numberofsaves<700){
+        color = "green"
+      }else if(this.props.numberofsaves<900){
+          color = "orange"
+      }else{
+        color = "red"
+      }
       return(
         <Col md={12} className="head">
           <Row>
             <Col md={2}>
             Logged in as: {this.state.username}     
             </Col>
+            <Col md={1} style={{color: color}}>{this.props.numberofsaves}/1000</Col>
             <Col md={1}>
               <a href={process.env.REACT_APP_REDIRECTURL}><Button variant="outline-secondary" size="sm" onClick={this.onClick}>Logout</Button></a>  
             </Col>
@@ -50,7 +59,7 @@ class Header extends React.Component{
             <Col md={1}>
       <Button variant="outline-danger" size="sm" onClick={this.props.onSubredditSort}>{this.props.buttontext}</Button>
             </Col>
-            <Col md={2}></Col>
+            
 
             <Col md={6}>
               <InputGroup className="mb-3">

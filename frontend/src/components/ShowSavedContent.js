@@ -204,7 +204,7 @@ class ShowSavedContent extends React.Component {
     return (
       <Container>
         <Row>
-          {this.state.loading ? "" : <Header buttontext={this.state.subbuttontext} name={this.state.username} onSearchSubmit={this.onSearchSubmit} onSubredditSort={this.onSubredditSort}/>}
+          {this.state.loading ? "" : <Header buttontext={this.state.subbuttontext} name={this.state.username} onSearchSubmit={this.onSearchSubmit} onSubredditSort={this.onSubredditSort} numberofsaves={this.state.originalcharacter.length}/>}
           {this.state.loading ? <PleaseHold seconds={this.state.seconds} /> : show}
         </Row>
       </Container>
