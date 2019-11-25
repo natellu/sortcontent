@@ -47,6 +47,9 @@ class Header extends React.Component{
             <Col md={1}>
             <a href={process.env.REACT_APP_REDIRECTURL}><Button variant="outline-info" size="sm" onClick={this.updateContent}>Update</Button></a>  
             </Col>
+            <Col md={1}>
+      <Button variant="outline-danger" size="sm" onClick={this.props.onSubredditSort}>{this.props.buttontext}</Button>
+            </Col>
             <Col md={2}></Col>
 
             <Col md={6}>

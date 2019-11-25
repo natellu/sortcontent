@@ -6,6 +6,7 @@ import axios from "axios"
 
 import Header from './Header'
 import PleaseHold from './PleaseHold'
+import ShowSubreddits from './ShowSubreddits'
 
 let apiurl = process.env.REACT_APP_APIURL
 
@@ -19,13 +20,18 @@ class ShowSavedContent extends React.Component {
       originalcharacter: [],
       seconds: 0,
       access_token: props.token,
-      username: ""
+      username: "",
+      subreddits: [],
+      showsub: false,
+      subbuttontext: "sort for subreddits"
     }
     this.onClickChange = this.onClickChange.bind(this)
     this.tick = this.tick.bind(this)
     this.onSearchSubmit = this.onSearchSubmit.bind(this)
     this.checkInSubreddit = this.checkInSubreddit.bind(this)
     this.checkInTitle = this.checkInTitle.bind(this)
+    this.onSubredditSort = this.onSubredditSort.bind(this)
+    this.onShowSubreddit = this.onShowSubreddit.bind(this)
   }
 
 
@@ -151,18 +157,55 @@ class ShowSavedContent extends React.Component {
       })
 
     }
+  }
 
+  onShowSubreddit(subreddit){
+    let newcharacter = [] 
+    console.log("clicked: ", subreddit)
+    newcharacter = newcharacter.concat(this.checkInSubreddit(subreddit))
+    this.setState({
+      character: newcharacter,
+      showsub: false
+    })
+  }
 
+  onSubredditSort(){
+    let subreddits = []
+    this.setState({character:this.state.originalcharacter}, () => {
+      if(!this.state.showsub){
+    
+        for(var i = 0; i < this.state.character.length; i++){
+          if(this.state.character[i].subreddit_name_prefixed !== undefined){
+            if(!subreddits.includes(this.state.character[i].subreddit_name_prefixed)){
+              subreddits.push(this.state.character[i].subreddit_name_prefixed)
+            }
+          }
+          
+        }
+        this.setState({subreddits: subreddits, showsub: true, subbuttontext: "show all"})
+
+      
+      }else{
+        this.setState({showsub:false, subbuttontext: "sort for subreddits"})
+      }
+    })
   }
 
 
   render() {
     let SavedContents = this.state.character.map(item => <SavedContent key={item.id} item={item} onClickChange={this.onClickChange} />)
+    let SavedSubreddits = this.state.subreddits.map(item => <ShowSubreddits key={item} item={item} onSearchSubmit={this.onShowSubreddit}/>)
+    let show =""
+    if(this.state.showsub){
+      show = SavedSubreddits
+    }else{
+      show = SavedContents
+    }
     return (
       <Container>
         <Row>
-          {this.state.loading ? "" : <Header name={this.state.username} onSearchSubmit={this.onSearchSubmit} />}
-          {this.state.loading ? <PleaseHold seconds={this.state.seconds} /> : SavedContents}
+          {this.state.loading ? "" : <Header buttontext={this.state.subbuttontext} name={this.state.username} onSearchSubmit={this.onSearchSubmit} onSubredditSort={this.onSubredditSort}/>}
+          {this.state.loading ? <PleaseHold seconds={this.state.seconds} /> : show}
         </Row>
       </Container>
     );
@@ -175,4 +218,4 @@ class ShowSavedContent extends React.Component {
 
 
 
-export default ShowSavedContent;
+export default ShowSavedContent
