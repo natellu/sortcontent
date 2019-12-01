@@ -1,6 +1,9 @@
 # sortcontent
 look through saved content from reddit
 
+livedemo: https://sortsavedcontent.herokuapp.com
+(first time loading this site is really slow due to heroku free plan limitations)
+
 npm install in frontend and backend<br>
 create .env file containing:<br>
 backend:<br>
