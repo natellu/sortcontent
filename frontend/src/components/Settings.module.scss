@@ -1,0 +1,26 @@
+.settings {
+    &__open {
+        z-index: 100;
+        position: relative;
+    }
+
+    &__overlay {
+        z-index: 1;
+        background-color: rgba(var(--color-background), 0.5);
+        color: rgba(var(--color-primary), 1);
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        width: 100vw;
+        min-height: 100vh;
+        place-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__theme, &__layout{
+      span{
+        margin:5px;
+      }
+    }
+}

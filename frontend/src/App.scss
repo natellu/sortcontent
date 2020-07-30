@@ -1,0 +1,43 @@
+$color: blue;
+:root{
+    --color-primary: #282c34;
+    --color-secondary: #ffffff;
+    --color-background: #000000;
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+  }
+body{
+    background-color: rgba(var(--color-background), 1);
+    color: rgba(var(--color-secondary), 1);
+}
+
+
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+} 
+
+
+
+
+h2 {
+    font-size: 1.2rem;
+}
+
+img {
+    height: 150px;
+}
+
+a{
+    color: rgba(var(--color-primary), 1);
+
+    &:hover{
+        color: rgba(var(--color-primary), 1);
+    }
+}
+
+
