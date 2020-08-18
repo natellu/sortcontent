@@ -1,4 +1,5 @@
 import React from "react"
+import axios from "axios"
 
 import {
     ADDACCESSTOKEN,
@@ -7,6 +8,8 @@ import {
     RESET,
     DELETEONE
 } from "./actionsTypes"
+
+const apiurl = process.env.REACT_APP_APIURL
 
 let ContextRedditData = React.createContext()
 
@@ -50,6 +53,14 @@ let reducer = (state, action) => {
             )
             return state
         case DELETEONE:
+            const sendid = {
+                accessToken: state.accessToken,
+                id: action.payload
+            }
+            axios.post(apiurl + "/reddit/unsaveContent", sendid, {
+                "Content-Type": "application/json"
+            })
+
             for (let i = 0; i < state.savedContent.length; i++) {
                 if (state.savedContent[i].id === action.payload) {
                     state.savedContent.splice(i, 1)
@@ -59,7 +70,7 @@ let reducer = (state, action) => {
                 "savedContent",
                 JSON.stringify(state.savedContent)
             )
-            return state
+            return { ...state }
     }
 }
 

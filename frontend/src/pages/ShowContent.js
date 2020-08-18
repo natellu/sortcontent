@@ -2,20 +2,17 @@ import React, { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { ContextRedditData } from "../context/redditContext"
 import { DELETEONE } from "../context/actionsTypes"
-import classnames from "classnames"
 import Content from "../components/Content"
-import axios from "axios"
 
 import LayoutContext, { CARDS, LIST, IMAGE } from "../context/layoutContext"
-
+import Search from "../components/Search"
 import ShowContentStyle from "./ShowContent.module.scss"
-
-const apiurl = process.env.REACT_APP_APIURL
 
 const ShowContent = () => {
     const { state, dispatch } = useContext(ContextRedditData)
-    const [forceRerender, setRerender] = useState(1)
+
     const [layout, setLayout] = useContext(LayoutContext)
+
     let styleContentContainer = ShowContentStyle.contentContainerCards
     if (layout === CARDS) {
         styleContentContainer = ShowContentStyle.contentContainerCards
@@ -26,22 +23,7 @@ const ShowContent = () => {
     }
 
     const unsave = (id) => {
-        const sendid = {
-            accessToken: state.accessToken,
-            id
-        }
-        axios
-            .post(apiurl + "/reddit/unsaveContent", sendid, {
-                "Content-Type": "application/json"
-            })
-            .then((res) => {
-                dispatch({ type: DELETEONE, payload: id })
-                //reload state
-                setRerender(forceRerender + 1)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
+        dispatch({ type: DELETEONE, payload: id })
     }
 
     if (!state.accessToken) {
@@ -56,6 +38,7 @@ const ShowContent = () => {
     return (
         <div>
             Content
+            <Search />
             <div className={styleContentContainer}>
                 {state.savedContent.map((content) => (
                     <Content

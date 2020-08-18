@@ -12,7 +12,7 @@ import "./App.scss"
 require("dotenv").config()
 
 const App = () => {
-    const layoutHook = useState("IMAGE")
+    const layoutHook = useState("CARDS")
     return (
         <LayoutContext.Provider value={layoutHook}>
             <Router>
