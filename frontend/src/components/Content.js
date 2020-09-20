@@ -26,7 +26,6 @@ const Content = ({
 }) => {
     const [layout, setLayout] = useContext(LayoutContext)
     const date = new Date(created_utc * 1000)
-
     let media = ""
 
     if (is_video) {
@@ -43,7 +42,7 @@ const Content = ({
             )
         }
     } else if (post_hint === "image") {
-        media = <img src={url} />
+        media = <img loading="lazy" src={url} />
     } else if (post_hint === "link" && domain === "i.imgur.com") {
         media = (
             <div>
@@ -56,17 +55,18 @@ const Content = ({
             </div>
         )
     } else if (post_hint === "rich:video" && domain === "redgifs.com") {
+        console.log(secure_media_embed)
         media = (
             <div>
                 <iframe
                     src={secure_media_embed.media_domain_url}
-                    frameborder="0"
+                    frameBorder="0"
                     scrolling="no"
                     width="100%"
                     height="100%"
-                    allowfullscreen
+                    allowFullScreen
                 ></iframe>
-            </div>
+            </div> 
         )
     } else if (post_hint === "link") {
         //media = <div>link</div>
@@ -97,7 +97,7 @@ const Content = ({
                 title={title}
                 media={media}
                 subreddit={subreddit}
-                unsave={unsave}
+                unsave={unsave} 
                 id={id}
                 permalink={permalink}
                 date={date}

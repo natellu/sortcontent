@@ -49,7 +49,7 @@ let reducer = (state, action) => {
             }
             sessionStorage.setItem(
                 "savedContent",
-                JSON.stringify(state.savedContent)
+                JSON.stringify(state.savedContent) 
             )
             return state
         case DELETEONE:

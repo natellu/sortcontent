@@ -29,7 +29,9 @@ const ContentCards = ({
             {media === "" ? (
                 displayTitle(title.length)
             ) : (
-                <div className={contentCardsStyles.content__body}>{media}</div>
+                <div className={contentCardsStyles.content__body}>{
+                    media
+                    }</div>
             )}
 
             {media === "" ? null : displayTitle(100)}

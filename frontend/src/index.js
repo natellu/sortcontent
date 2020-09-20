@@ -2,13 +2,15 @@ import React from "react"
 import ReactDOM from "react-dom"
 import "./index.css"
 import App from "./App"
+import RecycleTestComponent from './components/Recycling'
 import * as serviceWorker from "./serviceWorker"
 
 import { ContextRedditProvider } from "./context/redditContext"
 
 ReactDOM.render(
     <ContextRedditProvider>
-        <App />
+        {/* <App /> */}
+        <RecycleTestComponent />
     </ContextRedditProvider>,
     document.getElementById("root")
 )

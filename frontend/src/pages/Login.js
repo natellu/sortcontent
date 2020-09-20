@@ -32,7 +32,8 @@ const Login = (props) => {
                 }
             )
             .then((res) => {
-                setDoingNext("preparing content for displaying")
+                setDoingNext("preparing content for displaying")               
+                
                 dispatch({
                     type: ADDREDDITUSERNAME,
                     payload: res.data.redditName

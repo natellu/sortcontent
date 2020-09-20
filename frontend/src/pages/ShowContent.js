@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext } from "react"
 import { Link } from "react-router-dom"
 import { ContextRedditData } from "../context/redditContext"
 import { DELETEONE } from "../context/actionsTypes"
@@ -39,8 +39,10 @@ const ShowContent = () => {
         <div>
             Content
             <Search />
+            {console.log(state.savedContent)}
             <div className={styleContentContainer}>
                 {state.savedContent.map((content) => (
+                    
                     <Content
                         key={content.id}
                         props={content}

@@ -1,6 +1,7 @@
 const snoowrap = require("snoowrap")
 const base64 = require("base-64")
 const fetch = require("node-fetch")
+const { conversationStates } = require("snoowrap/dist/objects/ModmailConversation")
 
 require("dotenv").config()
 
@@ -24,7 +25,6 @@ exports.getRedditAccessToken = (req, res) => {
     })
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             if (
                 typeof data.access_token !== "undefined" ||
                 data.access_token !== null
@@ -40,7 +40,6 @@ exports.getRedditAccessToken = (req, res) => {
 exports.getSavedContent = (req, res) => {
     let savedContent = []
     let username = ""
-    console.log(req.body)
     const ruser = new snoowrap({
         userAgent:
             "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0",
@@ -57,14 +56,44 @@ exports.getSavedContent = (req, res) => {
     ruser
         .getMe()
         .getSavedContent()
-        /* .fetchAll() */
+        .fetchAll()
         .then((data) => {
-            savedContent = data
+            let newData = []
+            data.forEach(element => {
+                let title = ""
+                if(!element.title){
+                    title="test"
+                }else{
+                    title=element.title
+                }
+                let d = {
+                    title: title,
+                    id: element.id,
+                    body_html: element.body_html,
+                    created_utc: element.created_utc,
+                    permalink: element.permalink,
+                    subreddit: JSON.stringify(element.subreddit),
+                    post_hint: element.post_hint,
+                    is_video: element.is_video,
+                    thumbnail: element.thumbnail,
+                    url: element.url,
+                    over_18: element.over_18,
+                    domain: element.domain,
+                    secure_media_embed: element.secure_media_embed,
+                    secure_media: element.secure_media,
+                    selftext: element.selftext
+                }
+                newData.push(d)
+            })
+            
+            savedContent = newData
+            console.log(savedContent)
         })
         .then(() => {
             res.json({ redditName: username, savedContent: savedContent })
-        })
+        }) 
         .catch((err) => {
+            console.log(err)
             res.status(500).json({
                 error: err,
                 test: "test" + process.env.REDDIT_CLIENTSECRET
